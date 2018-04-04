@@ -45,6 +45,11 @@ div.tooltip {
     var lowColor = '#9edbca'
     var highColor = '#5e7aa9'
 
+    // Creates tooltip and makes it invisible by default.
+    var tooltip = d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+    
     var project = d3.geoAlbersUsa()
         .scale([1000])
         .translate([width/2, height/2]);
@@ -91,11 +96,11 @@ div.tooltip {
     		   .style('strock-width', '1')
     		   .style('fill', function(d) { return ramp(d.properties.value)})
                .on('mouseover', function(d){
-                cheese.transition().duration(200).style('opacity', .9);
-                cheese.html('<strong>' + d.properties.name + '</strong><br>' + commaFormat(d.properties.value)).style('left', (d3.event.pageX)+'px').style('top', (d3.event.pageY - 28) + 'px');
+                tooltip.transition().duration(200).style('opacity', .9);
+                tooltip.html('<strong>' + d.properties.name + '</strong><br>' + commaFormat(d.properties.value)).style('left', (d3.event.pageX)+'px').style('top', (d3.event.pageY - 28) + 'px');
             })
                .on('mouseout', function(d){
-                cheese.transition().duration(500).style('opacity', 0);
+                tooltip.transition().duration(500).style('opacity', 0);
             });
 
 
