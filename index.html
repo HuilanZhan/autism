@@ -5,7 +5,7 @@ body {
 	font: 12px sans-serif;
 	background-color: #ffffff;
 }
-        
+
 .legend {
 	position:absolute;
 	left:20px;
@@ -26,8 +26,8 @@ div.tooltip {
     position:absolute;
     text-align:center;
     width:100px;
-    height:40px;
-    padding:10px;
+    height:30px;
+    padding-top: :10px;
     font: 12px sans-serif;
     background: #eddfb0;
     border: 0px;
@@ -49,7 +49,7 @@ div.tooltip {
     var tooltip = d3.select("body").append("div")
                     .attr("class", "tooltip")
                     .style("opacity", 0);
-    
+
     var project = d3.geoAlbersUsa()
         .scale([1000])
         .translate([width/2, height/2]);
@@ -127,7 +127,7 @@ div.tooltip {
 			.attr('offset', '0%')
 			.attr('stop-color', highColor)
 			.attr('stop-opacity', 1);
-			
+
 		legend.append('stop')
 			.attr('offset', '100%')
 			.attr('stop-color', lowColor)
