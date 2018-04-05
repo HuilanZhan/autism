@@ -105,10 +105,17 @@ div.tooltip {
 									}
 								})
                 .on('mouseover', function(d){
-                    tooltip.transition().duration(200).style('opacity', .9);
-                    tooltip.html('<strong>' + d.properties.name + '</strong><br>' + d.properties.value)
-                    .style('left', (d3.event.pageX)+'px')
-                    .style('top', (d3.event.pageY - 28) + 'px');
+									if (d.properties.value === '-1') {
+										return tooltip.transition().duration(200).style('opacity', .9);
+										       tooltip.html('<strong>' + d.properties.name + '</strong><br>' + 'Data Unknown')
+													 .style('left', (d3.event.pageX)+'px')
+										       .style('top', (d3.event.pageY - 28) + 'px');
+									} else {
+										tooltip.transition().duration(200).style('opacity', .9);
+										tooltip.html('<strong>' + d.properties.name + '</strong><br>' + d.properties.value)
+										.style('left', (d3.event.pageX)+'px')
+										.style('top', (d3.event.pageY - 28) + 'px');
+									}
                 })
                 .on('mouseout', function(d){
                     tooltip.transition().duration(500).style('opacity', 0);
