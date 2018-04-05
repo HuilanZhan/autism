@@ -67,9 +67,9 @@ div.tooltip {
     	for (var d = 0; d < data.length; d++) {
     		dataArray.push(parseFloat(data[d].value))
     	}
-    	var minVal = d3.min(dataArray);
+    	var minVal = 0;
     	var maxVal = d3.max(dataArray);
-    	var ramp = d3.scaleLinear().domain([minVal,maxVal]).range([lowColor,highColor]);
+    	var ramp = d3.scaleLinear().domain([0,maxVal]).range([lowColor,highColor]);
 
     	d3.json('us-states.json', function(json){
     		for (var i = 0; i < data.length; i++) {
