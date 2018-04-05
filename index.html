@@ -35,8 +35,24 @@ div.tooltip {
     pointer-events: none;
   }
 
+h1 {
+	font: 24px sans-serif;
+	text-align: center;
+}
+
+#source {
+	font: 12px sans-serif;
+	font-style:italic;
+	color: #ddd;
+	text-align: left;
+}
+
 </style>
 <body>
+	  <h1> Comparing Autism Services by State </h1>
+		<!--paragraph needed -->
+
+		<!-- this is the map -->
     <script src= 'https://d3js.org/d3.v4.min.js'></script>
     <script>
     var width = 960;
@@ -46,9 +62,9 @@ div.tooltip {
     var highColor = '#5e7aa9'
 
     // Creates tooltip and makes it invisible by default.
-    var tooltip = d3.select("body").append("div")
-                    .attr("class", "tooltip")
-                    .style("opacity", 0);
+    var tooltip = d3.select('body').append('div')
+                    .attr('class', 'tooltip')
+                    .style('opacity', 0);
 
     var project = d3.geoAlbersUsa()
         .scale([1000])
@@ -156,7 +172,7 @@ div.tooltip {
 
 		var y = d3.scaleLinear()
 			.range([h, 0])
-			.domain([minVal, maxVal]);
+			.domain([0, maxVal]);
 
 		var yAxis = d3.axisRight(y);
 
@@ -169,4 +185,5 @@ div.tooltip {
     });
 
     </script>
+		<p id = 'source'> Source: Henry J Kaiser Family Foundation </p>
 </body>
