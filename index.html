@@ -93,8 +93,17 @@ div.tooltip {
                 .append('path')
                 .attr('d', path)
                 .style('stroke', '#fff')
-                .style('strock-width', '1')
-                .style('fill', function(d) { return ramp(d.properties.value)})
+                .style('stroke-width', '1')
+                .style('fill', function(d) {
+									//console.log(d);
+									if(d.properties.value === "-1") {
+										console.log("-1 value");
+										return "#ddd";
+									} else {
+										console.log("other value")
+										return ramp(d.properties.value);
+									}
+								})
                 .on('mouseover', function(d){
                     tooltip.transition().duration(200).style('opacity', .9);
                     tooltip.html('<strong>' + d.properties.name + '</strong><br>' + d.properties.value)
