@@ -73,7 +73,7 @@ div.tooltip {
     	}
     	var minVal = 0;
     	var maxVal = d3.max(dataArray);
-    	var ramp = d3.scaleLinear().domain([0,1，maxVal]).range([firstColor, secondColor, thirdColor]);
+    	var ramp = d3.scaleLinear().domain([0, 1, maxVal]).range([firstColor, secondColor, thirdColor]);
 
     	d3.json('us-states.json', function(json){
     		for (var i = 0; i < data.length; i++) {
