@@ -6,11 +6,11 @@ body {
 	background-color: #ffffff;
 }
 
-.legend {
+/*.legend {
 	position:absolute;
 	left:20px;
 	top:30px;
-}
+}*/
 
 .axis text {
 	font: 10px sans-serif;
@@ -25,7 +25,7 @@ body {
 div.tooltip {
     position:absolute;
     text-align:center;
-    width:150px;
+    width:200px;
     height:40px;
     padding-top: 15px;
     padding-bottom: 30px;
@@ -36,18 +36,30 @@ div.tooltip {
     pointer-events: none;
   }
 
+ h1 {
+ 	text-align: center;
+ }
+
 
 </style>
 <body>
+
+	<h1> Medicaid Waiver Accessibility for People <br> with Developmental Disabilities Varies Widely by State </h1>
+
 		<!-- this is the map -->
+	<div class = 'map'>
     <script src= 'https://d3js.org/d3.v4.min.js'></script>
     <script>
     var width = 960;
     var height = 500;
 
-    var firstColor = '#fee1a1'
-    var secondColor = '#96cecc'
-    var thirdColor = '#5e7aa9'
+    var firstColor = '#acc875'
+    var secondColor = '#ffe98b'
+    var thirdColor = '#fdb240'
+    var fourthColor = '#fb6828'
+    var fifthColor = '#ee3b0e'
+    var sixthColor = '#ec1010'
+
 
     // Creates tooltip and makes it invisible by default.
     var tooltip = d3.select('body').append('div')
@@ -67,13 +79,13 @@ div.tooltip {
         .attr('height', height);
 
     d3.csv('autism.csv', function(data) {
-    	var dataArray = [];
+    	/*var dataArray = [];
     	for (var d = 0; d < data.length; d++) {
     		dataArray.push(parseFloat(data[d].value))
     	}
     	var minVal = 0;
     	var maxVal = d3.max(dataArray);
-    	var ramp = d3.scaleLinear().domain([0, 1, maxVal]).range([firstColor, secondColor, thirdColor]);
+    	var ramp = d3.scaleLinear().domain([0, 1, maxVal]).range([firstColor, secondColor, thirdColor]);*/
 
     	d3.json('us-states.json', function(json){
     		for (var i = 0; i < data.length; i++) {
@@ -109,24 +121,37 @@ div.tooltip {
 										return "#ddd";
 									} else if (d.properties.value === '-2') {
 										console.log('-2 value');
-										return 'black';
+										return '#ddd';
+									} else if (d.properties.value === '0') {
+										return firstColor;
+									} else if (d.properties.value >= '0.01' && d.properties.value < '0.5') {
+										return secondColor;
+									} else if (d.properties.value >= '0.5' && d.properties.value < '1') {
+										return thirdColor;
+									} else if (d.properties.value >= '1' && d.properties.value < '1.5') {
+										return fourthColor;
+									} else if (d.properties.value >= '1.5' && d.properties.value < '2') {
+										return fifthColor;
 									} else {
-										console.log("other value")
-										return ramp(d.properties.value);
+										return sixthColor;
 									}
 								})
                 .on('mouseover', function(d){
 									tooltip.transition().duration(200).style('opacity', .9);
 									if (d.properties.value === '-1') {
-										return tooltip.html('<strong>' + d.properties.name + '</strong><br>' + 'Data Unknown'+ '<br> Participants: ' + d.properties.participants + '<br> Enrollees: Data Unknown')
+										return tooltip.html('<strong>' + d.properties.name + '</strong><br><br>' + 'Data Unknown')
 													 .style('left', (d3.event.pageX)+'px')
 										       .style('top', (d3.event.pageY - 28) + 'px');
 									} else if (d.properties.value === '-2') {
-										return tooltip.html('<strong>' + d.properties.name + '</strong><br><br>' + 'No 1915 HCBS waivers <br>')
+										return tooltip.html('<strong>' + d.properties.name + '</strong><br>' + '<br>Do not have 1915(c) HCBS waivers<br>')
+													 .style('left', (d3.event.pageX)+'px')
+										       .style('top', (d3.event.pageY - 28) + 'px');
+									} else if (d.properties.value === '0') {
+										return tooltip.html('<strong>' + d.properties.name + '</strong><br>' + 'No waitlist <br>' + 'People Using Waivers: ' + d.properties.participants)
 													 .style('left', (d3.event.pageX)+'px')
 										       .style('top', (d3.event.pageY - 28) + 'px');
 									} else {
-										return tooltip.html('<strong>' + d.properties.name + '</strong><br>' + d.properties.value + '<br> Participants: ' + d.properties.participants + '<br> Enrollees: ' + d.properties.enrollees)
+										return tooltip.html('<strong>' + d.properties.name + '</strong><br>' + 'Ratio: ' + d.properties.value + '<br> People Using Waivers: ' + d.properties.participants + '<br> People on Waitlist: ' + d.properties.enrollees)
 										.style('left', (d3.event.pageX)+'px')
 										.style('top', (d3.event.pageY - 28) + 'px');
 									}
@@ -136,7 +161,7 @@ div.tooltip {
                 });
 
 		// add a legend
-		var w = 140, h = 300;
+		/*var w = 140, h = 300;
 
 		var key = d3.select('body')
 			.append('svg')
@@ -152,6 +177,21 @@ div.tooltip {
 			.attr('x2', '100%')
 			.attr('y2', '100%')
 			.attr('spreadMethod', 'pad');
+
+		legend.append('stop')
+			.attr('offset', '0%')
+			.attr('stop-color', sixthColor)
+			.attr('stop-opacity', 1);
+
+		legend.append('stop')
+			.attr('offset', '0%')
+			.attr('stop-color', fifthColor)
+			.attr('stop-opacity', 1);
+
+		legend.append('stop')
+			.attr('offset', '0%')
+			.attr('stop-color', fourthColor)
+			.attr('stop-opacity', 1);
 
 		legend.append('stop')
 			.attr('offset', '0%')
@@ -183,11 +223,16 @@ div.tooltip {
 		key.append('g')
 			.attr('class', 'y axis')
 			.attr('transform', 'translate(41,10)')
-			.call(yAxis)
+			.call(yAxis)*/
 
     	});
     });
 
     </script>
+</div>
+
+    <p>People with developmental and intellectual disabilities must get a waiver to use Medicaid funds to cover home or community-based care services. But the waivers are hard to come by, with more than 400,000 Americans with disabilities waiting for them in 2016. The numbers vary widely by state. The map above shows the ratio of people on the waitlist to those currently using the waiver in each state. Some have no waitlist, while others have more people waiting than currently using the waiver.</p>
+
+    <p id = 'source'> Source：Kaiser Family Foundation </p>
 
 </body>
