@@ -32,10 +32,11 @@ div.tooltip {
 	font-style: italic;
 }
 
+
 </style>
 <body>
 
-	<h1> Medicaid Waiver Accessibility for People <br> with Developmental Disabilities Varies Widely by State </h1>
+	<h1> People with developmental disabilities face long waits <br> for community-based services, depending on their state </h1>
 
 		<!-- this is the map -->
 	<div>
@@ -52,10 +53,9 @@ div.tooltip {
     var sixthColor = '#ec1010'
     
     var color = d3.scaleOrdinal()
-                .range([firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
-                .domain(['No Waitlist', 'Ratio: 0 - 0.5', 'Ratio: 0.5 - 1', 'Ratio: 1 - 1.5', 'Ratio: 1.5 - 2', "Ratio: 2 and above"]);
+                .range(['#ddd', firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
+                .domain(['Data Unknown or No Waiver', 'No Waitlist', '0 to 0.5', '0.5 to 1', '1 to 1.5', '1.5 to 2', "2 and above (longest wait)"]);
 
-    // Creates tooltip and makes it invisible by default.
     var tooltip = d3.select('body').append('div')
                     .attr('class', 'tooltip')
                     .style('opacity', 0);
@@ -75,8 +75,8 @@ div.tooltip {
 
     var legend = container.append('svg')
                      .attr('class', 'legend')
-                     .attr("viewBox", "0 0 180 200")
-                     .attr('width', '15%')
+                     .attr("viewBox", "0 0 210 160")
+                     .attr('width', '18%')
                      .selectAll('g')
                      .data(color.domain().slice().reverse())
                      .enter().append('g')
@@ -84,10 +84,11 @@ div.tooltip {
                         return 'translate(0, ' + i * 20 + ')';
                      });
 
+
     var main = container
         .append('svg')
-        .attr("viewBox", "0 0 1000 500")
-        .attr('width', '85%');
+        .attr("viewBox", "0 0 900 500")
+        .attr('width', '82%');
 
     d3.csv('autism.csv', function(data) {
     	/*var dataArray = [];
@@ -173,7 +174,6 @@ div.tooltip {
                     tooltip.transition().duration(500).style('opacity', 0);
                 });
 
-        
         legend.append('rect')
               .attr('width', 18)
               .attr('height', 18)
