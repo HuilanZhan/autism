@@ -29,10 +29,7 @@ div.tooltip {
  }
 
 .legend {
-	position:absolute;
-	font-size: 12px;
-	left:100px;
-	top:450px;
+	font-size: 12;
 }
 
 .source {
@@ -75,10 +72,27 @@ div.tooltip {
     var path = d3.geoPath()
         .projection(project);
 
-    var svg = d3.select('body')
+    var container = d3.select('body')
+        .append('div')
+        .attr('id', 'container')
+        .attr('height', '50%')
+        .attr('width', '100%')
+
+    var legend = container.append('svg')
+                     .attr('class', 'legend')
+                     .attr("viewBox", "0 0 140 200")
+                     .attr('width', '10%')
+                     .selectAll('g')
+                     .data(color.domain().slice().reverse())
+                     .enter().append('g')
+                     .attr('transform', function(d, i) {
+                        return 'translate(0, ' + i * 20 + ')';
+                     });
+
+    var main = container
         .append('svg')
-        .attr('width', width)
-        .attr('height', height);
+        .attr("viewBox", "0 0 1000 500")
+        .attr('width', '90%');
 
     d3.csv('autism.csv', function(data) {
     	/*var dataArray = [];
@@ -109,7 +123,7 @@ div.tooltip {
     			}
     		}
 
-            svg.selectAll('path')
+            main.selectAll('path')
                 .data(json.features)
                 .enter()
                 .append('path')
@@ -162,17 +176,7 @@ div.tooltip {
                     tooltip.transition().duration(500).style('opacity', 0);
                 });
 
-        var legend = d3.select('body').append('svg')
-                     .attr('class', 'legend')
-                     .attr('width', 140)
-                     .attr('height', 200)
-                     .selectAll('g')
-                     .data(color.domain().slice().reverse())
-                     .enter().append('g')
-                     .attr('transform', function(d, i) {
-                     	return 'translate(0, ' + i * 20 + ')';
-                     });
-
+        
         legend.append('rect')
               .attr('width', 18)
               .attr('height', 18)
