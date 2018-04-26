@@ -24,7 +24,7 @@ div.tooltip {
   }
 
  h1 {
-    text-align: center;
+    text-align: center;哦哦
  	font-size: 20px;
  }
 
@@ -52,8 +52,8 @@ div.tooltip {
     var sixthColor = '#ec1010'
     
     var color = d3.scaleOrdinal()
-                .range(['#ddd', firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
-                .domain(['No Data', 'No Waitlist', 'Ratio: 0 - 0.5', 'Ratio: 0.5 - 1', 'Ratio: 1 - 1.5', 'Ratio: 1.5 - 2', "Ratio: 2 and above"]);
+                .range([firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
+                .domain(['No Waitlist', 'Ratio: 0 - 0.5', 'Ratio: 0.5 - 1', 'Ratio: 1 - 1.5', 'Ratio: 1.5 - 2', "Ratio: 2 and above"]);
 
     // Creates tooltip and makes it invisible by default.
     var tooltip = d3.select('body').append('div')
