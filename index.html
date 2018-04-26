@@ -24,18 +24,13 @@ div.tooltip {
   }
 
  h1 {
- 	text-align: center;
- 	font-size: 24px;
+    text-align: center;
+ 	font-size: 20px;
  }
-
-.legend {
-	font-size: 12;
-}
 
 .source {
 	font-style: italic;
 }
-
 
 </style>
 <body>
@@ -43,10 +38,10 @@ div.tooltip {
 	<h1> Medicaid Waiver Accessibility for People <br> with Developmental Disabilities Varies Widely by State </h1>
 
 		<!-- this is the map -->
-	<div class = 'map'>
+	<div>
     <script src= 'https://d3js.org/d3.v4.min.js'></script>
     <script>
-    var width = 1000;
+    var width = 800;
     var height = 500;
 
     var firstColor = '#acc875'
@@ -80,8 +75,8 @@ div.tooltip {
 
     var legend = container.append('svg')
                      .attr('class', 'legend')
-                     .attr("viewBox", "0 0 140 200")
-                     .attr('width', '10%')
+                     .attr("viewBox", "0 0 180 200")
+                     .attr('width', '15%')
                      .selectAll('g')
                      .data(color.domain().slice().reverse())
                      .enter().append('g')
@@ -92,7 +87,7 @@ div.tooltip {
     var main = container
         .append('svg')
         .attr("viewBox", "0 0 1000 500")
-        .attr('width', '90%');
+        .attr('width', '85%');
 
     d3.csv('autism.csv', function(data) {
     	/*var dataArray = [];
