@@ -2,24 +2,10 @@
 <meta charset='utf-8'>
 <style>
 body {
-	font: 12px sans-serif;
+	font: 14px sans-serif;
 	background-color: #ffffff;
-}
-
-legend {
-	position:absolute;
-	left:20px;
-	top:30px;
-}
-
-.axis text {
-	font: 10px sans-serif;
-}
-
-.axis line, .axis path {
-	fill: none;
-	stroke: #000;
-	shape-rendering: crispEdges;
+	padding-left: 100px;
+	padding-right: 100px;
 }
 
 div.tooltip {
@@ -30,7 +16,7 @@ div.tooltip {
     padding-top: 15px;
     padding-bottom: 30px;
     font: 12px sans-serif;
-    background: white;
+    background: #fffbf2;
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
@@ -42,10 +28,14 @@ div.tooltip {
 
 .legend {
 	position:absolute;
-	left:800px;
-	top:350px;
+	font-size: 12px;
+	left:100px;
+	top:450px;
 }
 
+.source {
+	font-style: italic;
+}
 
 </style>
 <body>
@@ -56,7 +46,7 @@ div.tooltip {
 	<div class = 'map'>
     <script src= 'https://d3js.org/d3.v4.min.js'></script>
     <script>
-    var width = 960;
+    var width = 1000;
     var height = 500;
 
     var firstColor = '#acc875'
@@ -67,8 +57,8 @@ div.tooltip {
     var sixthColor = '#ec1010'
     
     var color = d3.scaleOrdinal()
-                .range([firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
-                .domain(['No Waitlist', 'Ratio: 0 - 0.5', 'Ratio: 0.5 - 1', 'Ratio: 1 - 1.5', 'Ratio: 1.5 - 2', "Ratio > 2"]);
+                .range(['#ddd', firstColor, secondColor, thirdColor, fourthColor, fifthColor, sixthColor])
+                .domain(['No Data', 'No Waitlist', 'Ratio: 0 - 0.5', 'Ratio: 0.5 - 1', 'Ratio: 1 - 1.5', 'Ratio: 1.5 - 2', "Ratio: 2 and above"]);
 
     // Creates tooltip and makes it invisible by default.
     var tooltip = d3.select('body').append('div')
@@ -192,70 +182,6 @@ div.tooltip {
               .text(function(d) {
               	return d;
               });
-        // add a legend
-		/*var w = 300, h = 40;
-
-		var key = d3.select('body')
-			.append('svg')
-			.attr('width', w)
-			.attr('height', h)
-			.attr('class', 'legend');
-
-		var legend = key.append('defs')
-			.append('svg:linearGradient')
-			.attr('id', 'gradient')
-			.attr('x1', '100%')
-			.attr('y1', '0%')
-			.attr('x2', '100%')
-			.attr('y2', '100%')
-			.attr('spreadMethod', 'pad');
-
-		legend.append('stop')
-			.attr('offset', '0%')
-			.attr('stop-color', sixthColor)
-			.attr('stop-opacity', 1);
-
-		legend.append('stop')
-			.attr('offset', '0%')
-			.attr('stop-color', fifthColor)
-			.attr('stop-opacity', 1);
-
-		legend.append('stop')
-			.attr('offset', '0%')
-			.attr('stop-color', fourthColor)
-			.attr('stop-opacity', 1);
-
-		legend.append('stop')
-			.attr('offset', '0%')
-			.attr('stop-color', thirdColor)
-			.attr('stop-opacity', 1);
-
-		legend.append('stop')
-			.attr('offset', '50%')
-			.attr('stop-color', secondColor)
-			.attr('stop-opacity', 1);
-
-		legend.append('stop')
-			.attr('offset', '100%')
-			.attr('stop-color', firstColor)
-			.attr('stop-opacity', 1);
-
-		key.append('rect')
-			.attr('width', w - 100)
-			.attr('height', h)
-			.style('fill', 'url(#gradient)')
-			.attr('transform', 'translate(0,10)');
-
-		var y = d3.scaleLinear()
-			.range([h, 0])
-			.domain([0, maxVal]);
-
-		var yAxis = d3.axisRight(y);
-
-		key.append('g')
-			.attr('class', 'y axis')
-			.attr('transform', 'translate(41,10)')
-			.call(yAxis)*/
 
     	});
     });
@@ -265,6 +191,6 @@ div.tooltip {
 
     <p>People with developmental and intellectual disabilities must get a waiver to use Medicaid funds to cover home or community-based care services. But the waivers are hard to come by, with more than 400,000 Americans with disabilities waiting for them in 2016. The numbers vary widely by state. The map above shows the ratio of people on the waitlist to those currently using the waiver in each state. Some have no waitlist, while others have more people waiting than currently using the waiver.</p>
 
-    <p id = 'source'> Source：Kaiser Family Foundation </p>
+    <p class = 'source'> Source：Kaiser Family Foundation </p>
 
 </body>
